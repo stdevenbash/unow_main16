@@ -1,0 +1,113 @@
+<odoo>
+    <template id="portal_my_projects" name="My Projects with Filter">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <h1 class="text-center mb-4">Mis Proyectos</h1>
+                <div class="row mb-4">
+                    <form method="GET" action="/my/projects" class="col-md-12">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label for="start_date" class="form-label">Fecha Inicio</label>
+                                <input type="date" name="start_date" id="start_date" class="form-control"
+                                    t-att-value="request.params.get('start_date', '')" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="end_date" class="form-label">Fecha Fin</label>
+                                <input type="date" name="end_date" id="end_date" class="form-control"
+                                    t-att-value="request.params.get('end_date', '')" />
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <button type="submit" class="btn btn-primary mt-3">Filtrar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <t t-foreach="projects" t-as="project">
+                        <div class="col">
+                            <div class="card h-100 shadow-sm border-0 rounded-3 hover-shadow">
+                                <div class="card-body">
+                                    <h5 class="card-title text-dark fw-bold"><t t-esc="project.name"/></h5>
+                                    <p class="card-text text-muted"><t t-esc="project.description"/></p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Fecha Inicio: <t t-esc="project.start_date"/></li>
+                                    <li class="list-group-item">Fecha Fin: <t t-esc="project.end_date"/></li>
+                                </ul>
+                                <div class="card-footer text-center">
+                                    <a t-att-href="'/my/project/%s' % project.id" 
+                                       class="btn btn-outline-primary w-100 py-2 rounded-pill fw-bold">Ver Proyecto</a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+                <div class="text-center mt-4">
+                    <a class="btn btn-success rounded-pill px-5 py-3 shadow-sm fw-bold" href="/my/projects/create">Crear Proyecto</a>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="portal_create_project" name="Create Project">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center">
+                        <img src="/employee_projects/static/src/img/project_icon.png" alt="Crear Proyecto" class="img-fluid" style="max-width: 80%;" />
+                    </div>
+                    <div class="col-md-6">
+                        <h2 class="mb-4 text-primary text-center">Crear Nuevo Proyecto</h2>
+                        <form method="POST" action="/my/projects/create" class="needs-validation p-4 shadow-sm rounded" style="background-color: #f9f9f9;">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nombre del Proyecto</label>
+                                <input type="text" name="name" id="name" class="form-control" required="true" placeholder="Ingresa el nombre del proyecto" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Descripción</label>
+                                <textarea name="description" id="description" class="form-control" rows="3" placeholder="Describe brevemente el proyecto"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="start_date" class="form-label">Fecha de Inicio</label>
+                                <input type="date" name="start_date" id="start_date" class="form-control" required="true" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="end_date" class="form-label">Fecha de Fin</label>
+                                <input type="date" name="end_date" id="end_date" class="form-control" />
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success w-100">Guardar Proyecto</button>
+                                <a href="/my/projects" class="btn btn-link text-secondary mt-2">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="portal_view_project" name="View Project">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-white text-center d-flex align-items-center justify-content-center" 
+                         style="background-image: url('/employee_projects/static/src/img/contact_background.png'); 
+                                background-size: cover; 
+                                background-position: center; 
+                                min-height: 300px; 
+                                border-radius: 8px;">
+                    </div>
+                    <div class="col-md-6">
+                        <h2 class="mb-4 text-primary text-center"><t t-esc="project.name"/></h2>
+                        <div class="p-4 shadow-sm rounded" style="background-color: #f9f9f9;">
+                            <p><strong>Descripción:</strong> <t t-esc="project.description"/></p>
+                            <p><strong>Fecha de Inicio:</strong> <t t-esc="project.start_date"/></p>
+                            <p><strong>Fecha de Fin:</strong> <t t-esc="project.end_date"/></p>
+                            <div class="text-center mt-4">
+                                <a href="/my/projects" class="btn btn-secondary">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
