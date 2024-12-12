@@ -1,0 +1,32 @@
+<odoo>
+    <record id="view_employee_project_form" model="ir.ui.view">
+        <field name="name">employee.project.form</field>
+        <field name="model">employee.project</field>
+        <field name="arch" type="xml">
+            <form string="Proyecto">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="employee_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_employee_project_tree" model="ir.ui.view">
+        <field name="name">employee.project.tree</field>
+        <field name="model">employee.project</field>
+        <field name="arch" type="xml">
+            <tree string="Proyectos">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
